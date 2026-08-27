@@ -1,7 +1,7 @@
 {
   "functions": {
     "api/*.js": {
-      "includeFiles": "data/answers.json",
+      "includeFiles": "public/data/answers.json",
       "maxDuration": 10
     }
   },

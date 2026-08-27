@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>在线考卷</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div class="boot" id="boot"><div class="dots">载入题目中……</div></div>
+
+<div id="grading" class="grading hidden"><div class="box">
+  <div class="ring"></div>
+  <div style="font-family:var(--serif);font-size:17px">伺服器评分中……</div>
+  <div class="meta-s" style="margin-top:6px">请稍候，不要关闭页面</div>
+</div></div>
+
+<div id="app" class="hidden">
+  <div id="topbar" class="topbar hidden">
+    <div class="in">
+      <span class="clock" id="clock">03:00:00</span>
+      <div class="prog" id="prog"><i></i></div>
+      <span class="meta-s" id="progTxt">已作答 0 / 0</span>
+      <button class="btn seal sm" id="btnSubmit">交卷并评分</button>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <header class="mast">
+      <div class="org" data-bind="org"></div>
+      <h1><span data-bind="title"></span> <span class="badge">HSG</span></h1>
+      <div class="sub"><span data-bind="subject"></span>　·　<span data-bind="year"></span></div>
+      <div class="facts">
+        <span><b>时间</b> <span data-bind="duration"></span> 分钟</span>
+        <span><b>总分</b> <span data-bind="total"></span> 分</span>
+        <span><b>题量</b> <span data-bind="count"></span> 题</span>
+        <span><b>评分</b> 交卷后由伺服器自动批改</span>
+      </div>
+    </header>
+
+    <div class="panel" id="setup">
+      <h2>考生信息 / Thông tin thí sinh</h2>
+      <div class="grid g3">
+        <div><label class="fl">姓名 Họ tên *</label><input type="text" id="f_name" placeholder="Nguyễn Văn A"></div>
+        <div><label class="fl">准考证号 SBD</label><input type="text" id="f_sbd" placeholder="123456"></div>
+        <div><label class="fl">班级 Lớp</label><input type="text" id="f_class" placeholder="12A1"></div>
+      </div>
+      <div style="margin-top:18px"><label class="fl">作答模式</label>
+        <div class="rmode">
+          <label class="on"><input type="radio" name="mode" id="m_timed" checked>正式考试 · 倒数计时</label>
+          <label><input type="radio" name="mode" id="m_free">练习模式 · 不计时</label>
+        </div>
+      </div>
+      <div class="note" style="margin:18px 0 0">
+        <b>交卷后由伺服器自动评分。</b>标准答案存放在伺服器上，不会传到你的浏览器。
+        选择题、填空题按标准答案批改；改错句、问答、翻译、整理句子等开放题，
+        会依你的答案与标准答案的<b>要点覆盖率与文字相似度</b>给分。考试期间请勿关闭或刷新本页。
+      </div>
+      <button class="btn jade" id="btnStart" style="margin-top:16px">开始作答</button>
+    </div>
+
+    <div id="examArea" class="hidden">
+      <div class="panel"><h2>题号导航</h2><div class="jump" id="jumpBar"></div></div>
+      <div id="paper"></div>
+      <div style="text-align:center;margin:44px 0 10px">
+        <div style="font-family:var(--serif);letter-spacing:.4em;color:var(--ink3);font-size:13px;margin-bottom:20px">———— HẾT ————</div>
+        <button class="btn seal" id="btnSubmit2" style="padding:12px 34px;font-size:15px">交卷并评分</button>
+      </div>
+    </div>
+
+    <div id="resultWrap" class="hidden"><div id="resultBody"></div></div>
+  </div>
+</div>
+
+<div id="keyPage" class="hidden"><div class="wrap">
+  <header class="mast">
+    <div class="org" data-bind="org"></div>
+    <h1>答案卡编辑 <span class="badge">GIÁO VIÊN</span></h1>
+    <div class="sub">仅供老师使用 · 学生请回到 <a href="./">考卷首页</a></div>
+  </header>
+
+  <div id="keyLock" class="panel lockbox hidden">
+    <h2>教师密码</h2>
+    <p class="meta-s" style="margin-top:-6px">请输入 Vercel 环境变数 <code>TEACHER_PASSWORD</code> 设定的密码。</p>
+    <input type="password" id="f_pw" placeholder="密码" autocomplete="current-password">
+    <button class="btn jade" id="btnKeyLogin" style="margin-top:14px">进入</button>
+  </div>
+
+  <div id="keyEdit" class="hidden">
+    <div class="note">改完后下载 <code>answers.json</code>，覆盖专案根目录那一份，再推到 GitHub，Vercel 会自动重新部署。<br>
+    黄色标记的题目来自听力，原卷未附答案，是依题意推定的，建议对照录音稿核对。</div>
+    <div id="keyBody"></div>
+    <div style="display:flex;gap:10px;margin:20px 0 60px;flex-wrap:wrap">
+      <button class="btn seal" id="btnKeyDl">下载 answers.json</button>
+    </div>
+  </div>
+</div></div>
+
+<div class="toast" id="toast"></div>
+<script src="assets/app.js"></script>
+</body>
+</html>

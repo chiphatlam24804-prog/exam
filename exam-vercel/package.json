@@ -1,0 +1,8 @@
+{
+  "name": "tiengtrung-hsg-exam",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -6,8 +6,8 @@
     }
   },
   "routes": [
-    { "src": "/api/(.*)", "dest": "/api/$1" },
-    { "src": "/assets/(.*)", "dest": "/public/assets/$1" },
-    { "src": "/(.*)", "dest": "/index.html" }
+    { "src": "/api/(.*)", "destination": "/api/$1" },
+    { "src": "/assets/(.*)", "destination": "/public/assets/$1" },
+    { "src": "/(.*)", "destination": "/index.html" }
   ]
 }
